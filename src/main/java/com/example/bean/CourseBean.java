@@ -16,8 +16,6 @@ import com.example.service.CourseService;
 import com.example.service.StudentService;
 import com.example.service.UniversityService;
 
-
-
 @Named
 @ViewScoped
 public class CourseBean implements Serializable {

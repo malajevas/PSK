@@ -22,9 +22,7 @@ public class StudentService {
     
     @Transactional
     public Student findById(int id) {
-        Student student = studentDao.find(id);
-        student.getCourses().size(); // Triggers lazy-loading
-        return student;
+        return studentDao.findWithCourses(id);
     }
     
     @Transactional

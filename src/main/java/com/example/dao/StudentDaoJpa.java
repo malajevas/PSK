@@ -56,4 +56,13 @@ public class StudentDaoJpa implements StudentDao {
                  .setParameter("univId", universityId)
                  .getResultList();
     }
+    
+    @Override
+    public Student findWithCourses(int id) {
+        return em.createQuery(
+                    "SELECT s FROM Student s LEFT JOIN FETCH s.courses WHERE s.id = :id", 
+                    Student.class)
+                 .setParameter("id", id)
+                 .getSingleResult();
+    }
 }

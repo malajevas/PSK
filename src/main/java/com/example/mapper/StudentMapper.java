@@ -8,6 +8,7 @@ import com.example.model.University;
 
 public interface StudentMapper {
     Student selectById(int id);
+    Student selectByIdWithCourses(int id);
     List<Student> selectAll();
     void insert(Student student);
     void update(Student student);
@@ -17,4 +18,5 @@ public interface StudentMapper {
     
     University selectUniversityById(int id);
     List<Course> selectCoursesByStudentId(int studentId);
+    
 }

@@ -11,4 +11,5 @@ public interface StudentDao {
     Student update(Student student);
     void delete(int id);
     List<Student> findByUniversity(int universityId);
+    Student findWithCourses(int id);
 }

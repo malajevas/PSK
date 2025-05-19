@@ -47,4 +47,9 @@ public class StudentDaoMyBatis implements StudentDao {
     public List<Student> findByUniversity(int universityId) {
         return sqlSession.getMapper(StudentMapper.class).selectByUniversityId(universityId);
     }
+
+    @Override
+    public Student findWithCourses(int id) {
+        return sqlSession.getMapper(StudentMapper.class).selectByIdWithCourses(id);
+    }
 }

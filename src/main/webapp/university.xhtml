@@ -32,7 +32,7 @@
         <!-- STUDENTS LIST -->
         <h:panelGroup>
             <h3>Students</h3>
-            <h:dataTable value="#{universityBean.students}" var="student" border="1">
+            <h:dataTable value="#{universityBean.university.students}" var="student" border="1">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
                     #{student.id}

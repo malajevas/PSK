@@ -19,6 +19,26 @@
                 select="selectCoursesByStudentId"/>
   </resultMap>
   
+  <!-- New result map for eager loading with courses -->
+  <resultMap id="StudentWithCoursesResultMap" type="com.example.model.Student">
+    <id property="id" column="student_id"/>
+    <result property="firstName" column="firstname"/>
+    <result property="lastName" column="lastname"/>
+    
+    <!-- ManyToOne: University -->
+    <association property="university" javaType="com.example.model.University">
+      <id property="id" column="university_id"/>
+      <result property="name" column="university_name"/>
+    </association>
+    
+    <!-- ManyToMany: Courses (eager loaded) -->
+    <collection property="courses" ofType="com.example.model.Course">
+      <id property="id" column="course_id"/>
+      <result property="title" column="course_title"/>
+      <result property="universityId" column="course_university_id"/>
+    </collection>
+  </resultMap>
+  
     <select id="selectUniversityById" parameterType="int" resultType="com.example.model.University">
     SELECT id, name FROM university WHERE id = #{id}
   </select>
@@ -32,7 +52,22 @@
   
   
   
-  
+  <select id="selectByIdWithCourses" parameterType="int" resultMap="StudentWithCoursesResultMap">
+    SELECT 
+      s.id as student_id, 
+      s.firstname, 
+      s.lastname, 
+      u.id as university_id, 
+      u.name as university_name,
+      c.id as course_id, 
+      c.title as course_title, 
+      c.university_id as course_university_id
+    FROM student s
+    LEFT JOIN university u ON s.university_id = u.id
+    LEFT JOIN course_student cs ON s.id = cs.student_id
+    LEFT JOIN course c ON cs.course_id = c.id
+    WHERE s.id = #{id}
+  </select>
   
   <select id="selectById" parameterType="int" resultMap="StudentResultMap">
     SELECT id, firstname, lastname, university_id
