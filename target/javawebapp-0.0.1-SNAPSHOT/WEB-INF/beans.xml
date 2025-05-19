@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+                           https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd" 
+       bean-discovery-mode="annotated" version="4.0">
+  <alternatives>
+  <!--  
+    <class>com.example.dao.UniversityDaoJpa</class>
+    <class>com.example.dao.StudentDaoJpa</class>
+    <class>com.example.dao.CourseDaoJpa</class>
+     -->
+        
+    <class>com.example.dao.UniversityDaoMyBatis</class>
+    <class>com.example.dao.StudentDaoMyBatis</class>
+    <class>com.example.dao.CourseDaoMyBatis</class>
+     
+   
+  </alternatives>
+</beans>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html" 
+      xmlns:f="jakarta.faces.core" 
+      xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <title>Student Details</title>
+</h:head>
+<h:body>
+    <ui:include src="_navbar.xhtml" />
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{studentBean.id}" />
+    </f:metadata>
+
+    <h2>#{studentBean.student.id == 0 ? 'New Student' : 'Edit Student'}</h2>
+
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel for="firstName" value="First Name:" />
+            <h:inputText id="firstName" value="#{studentBean.student.firstName}" required="true" />
+
+            <h:outputLabel for="lastName" value="Last Name:" />
+            <h:inputText id="lastName" value="#{studentBean.student.lastName}" required="true" />
+
+            <h:outputLabel for="univ" value="University:" />
+            <h:selectOneMenu id="univ" value="#{studentBean.selectedUniversityId}" required="true">
+                <f:selectItems value="#{studentBean.universities}" var="uni" 
+                               itemValue="#{uni.id}" itemLabel="#{uni.name}" />
+            </h:selectOneMenu>
+        </h:panelGrid>
+        <br/>
+        <h:commandButton value="Save" action="#{studentBean.saveStudent}" />
+        <h:commandButton value="Delete" action="#{studentBean.deleteStudent}" 
+                         rendered="#{studentBean.student.id ne 0}" 
+                         onclick="return confirm('Delete this student?');" />
+        <h:commandButton value="Cancel" immediate="true" 
+                         action="students?faces-redirect=true" />
+    </h:form>
+
+	<h:panelGroup rendered="#{studentBean.student.id ne 0}">
+	    <h:commandButton value="Refresh Courses" action="#{studentBean.reloadStudent}" />
+	    
+	    <h3>Enrolled Courses</h3>
+	    <h:dataTable value="#{studentBean.student.courses}" var="course" border="1">
+	        <h:column>
+	            <f:facet name="header">Course ID</f:facet>
+	            #{course.id}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Title</f:facet>
+	            #{course.title}
+	        </h:column>
+	    </h:dataTable>
+	</h:panelGroup>
+</h:body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html" xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <title>JavaWebApp Home</title>
+</h:head>
+<h:body>
+	<ui:include src="_navbar.xhtml" />
+    <h2>Welcome to the University Application</h2>
+    <ul>
+        <li><h:link outcome="universities.xhtml" value="Manage Universities"/></li>
+        <li><h:link outcome="students.xhtml" value="Manage Students"/></li>
+        <li><h:link outcome="courses.xhtml" value="Manage Courses"/></li>
+    </ul>
+</h:body>
+</html>

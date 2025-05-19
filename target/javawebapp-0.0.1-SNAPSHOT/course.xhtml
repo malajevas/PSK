@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <title>Course Details</title>
+</h:head>
+<h:body>
+	<ui:include src="_navbar.xhtml" />
+	
+    <f:metadata>
+        <f:viewParam name="id" value="#{courseBean.id}" />
+        <f:viewAction action="#{courseBean.getCourse}" />
+    </f:metadata>
+    
+    
+    <h2>#{courseBean.course.id == 0 ? 'New Course' : 'Edit Course'}</h2>
+    
+    <h:form id="courseForm">
+    
+        <h:panelGrid columns="2">
+            <h:outputLabel for="title" value="Title:" />
+            <h:inputText id="title" value="#{courseBean.course.title}" required="true" />
+            
+            <h:outputLabel for="univ" value="University:" />
+            <h:selectOneMenu id="univ" value="#{courseBean.selectedUniversityId}" required="true">
+                <f:selectItems value="#{courseBean.universities}" var="uni" 
+                               itemValue="#{uni.id}" itemLabel="#{uni.name}" />
+                <f:ajax listener="#{courseBean.changeUniversity}" render="studentsList"/>
+            </h:selectOneMenu>
+        </h:panelGrid>
+        
+        <br/>
+        
+        <h:outputLabel value="Enrolled Students:" style="font-weight:bold;"/>
+        
+        <br/>
+        
+        
+        <h:selectManyListbox id="studentsList" value="#{courseBean.selectedStudentIds}" 
+                              size="5" style="min-width:200px;">
+            <f:selectItems value="#{courseBean.availableStudents}" var="stu" 
+                           itemValue="#{stu.id}" itemLabel="#{stu.firstName} #{stu.lastName}" />
+        </h:selectManyListbox>
+        
+        <br/>
+        
+        <h:commandButton value="Save" action="#{courseBean.saveCourse}" />
+        <h:commandButton value="Delete" action="#{courseBean.deleteCourse}" 
+                         rendered="#{courseBean.course.id ne 0}" 
+                         onclick="return confirm('Delete this course?');" />
+        <h:commandButton value="Cancel" immediate="true" 
+                         action="courses?faces-redirect=true" />
+    </h:form>
+</h:body>
+</html>

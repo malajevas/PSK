@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <title>Courses</title>
+</h:head>
+<h:body>
+	<ui:include src="_navbar.xhtml" />
+    <h2>Course List</h2>
+    <h:form>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>University</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ui:repeat value="#{courseBean.courses}" var="course">
+                    <tr>
+                        <td>#{course.id}</td>
+                        <td>#{course.title}</td>
+                        <td>#{course.university.name}</td>
+                        <td>
+                            <h:link outcome="course.xhtml" value="Edit">
+                                <f:param name="id" value="#{course.id}" />
+                            </h:link>
+                        </td>
+                    </tr>
+                </ui:repeat>
+            </tbody>
+        </table>
+        <br/>
+        <h:link outcome="course.xhtml" value="Add New Course">
+            <f:param name="id" value="0" />
+        </h:link>
+    </h:form>
+</h:body>
+</html>
